@@ -1,0 +1,302 @@
+{
+  "info": {
+    "name": "NowPlaying API - A00336082",
+    "description": "Full CRUD + MySQL stored procedure + trigger + MongoDB aggregation for DB Systems 5 project.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET All Users",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/users" }
+    },
+    {
+      "name": "GET User by ID",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/users/1" }
+    },
+    {
+      "name": "POST Create User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"newuser@example.com\",\n  \"passwordHash\": \"hashed_password\",\n  \"firstName\": \"New\",\n  \"lastName\": \"User\"\n}"
+        },
+        "url": "http://localhost:8080/api/users"
+      }
+    },
+    {
+      "name": "PUT Update User",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"musicfan99\",\n  \"email\": \"musicfan99@example.com\",\n  \"passwordHash\": \"hashed_password_1\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Updated\"\n}"
+        },
+        "url": "http://localhost:8080/api/users/1"
+      }
+    },
+    {
+      "name": "DELETE User (trigger blocks - expect 409)",
+      "request": {
+        "method": "DELETE",
+        "url": "http://localhost:8080/api/users/1",
+        "description": "User 1 has active subscription. trg_prevent_user_delete should return 409 Conflict."
+      }
+    },
+    {
+      "name": "DELETE User (expired sub - expect 204)",
+      "request": {
+        "method": "DELETE",
+        "url": "http://localhost:8080/api/users/3",
+        "description": "User 3 has expired subscription. Delete should succeed."
+      }
+    },
+    {
+      "name": "GET All Subscriptions",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/subscriptions" }
+    },
+    {
+      "name": "GET Subscription by ID",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/subscriptions/1" }
+    },
+    {
+      "name": "POST Create Subscription",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"planType\": \"PREMIUM\",\n  \"startDate\": \"2026-07-01\",\n  \"endDate\": \"2027-07-01\",\n  \"status\": \"ACTIVE\"\n}"
+        },
+        "url": "http://localhost:8080/api/subscriptions"
+      }
+    },
+    {
+      "name": "PUT Update Subscription",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"planType\": \"UNLIMITED\",\n  \"startDate\": \"2026-01-15\",\n  \"endDate\": \"2026-12-15\",\n  \"status\": \"ACTIVE\"\n}"
+        },
+        "url": "http://localhost:8080/api/subscriptions/1"
+      }
+    },
+    {
+      "name": "DELETE Subscription",
+      "request": { "method": "DELETE", "url": "http://localhost:8080/api/subscriptions/3" }
+    },
+    {
+      "name": "GET All Artists",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/artists" }
+    },
+    {
+      "name": "GET Artist by ID",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/artists/1" }
+    },
+    {
+      "name": "POST Create Artist",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Drake\",\n  \"genre\": \"Hip-Hop\",\n  \"bio\": \"Canadian rapper and singer\"\n}"
+        },
+        "url": "http://localhost:8080/api/artists"
+      }
+    },
+    {
+      "name": "PUT Update Artist",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"The Weeknd\",\n  \"genre\": \"Synthwave/Pop\",\n  \"bio\": \"Updated bio\"\n}"
+        },
+        "url": "http://localhost:8080/api/artists/1"
+      }
+    },
+    {
+      "name": "DELETE Artist",
+      "request": { "method": "DELETE", "url": "http://localhost:8080/api/artists/4" }
+    },
+    {
+      "name": "GET All Songs",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/songs" }
+    },
+    {
+      "name": "GET Song by ID",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/songs/1" }
+    },
+    {
+      "name": "POST Create Song",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"artistId\": 1,\n  \"title\": \"Save Your Tears\",\n  \"durationSeconds\": 215,\n  \"releasedAt\": \"2020-08-09\"\n}"
+        },
+        "url": "http://localhost:8080/api/songs"
+      }
+    },
+    {
+      "name": "PUT Update Song",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"artistId\": 1,\n  \"title\": \"Blinding Lights\",\n  \"durationSeconds\": 200,\n  \"releasedAt\": \"2019-11-29\"\n}"
+        },
+        "url": "http://localhost:8080/api/songs/1"
+      }
+    },
+    {
+      "name": "DELETE Song",
+      "request": { "method": "DELETE", "url": "http://localhost:8080/api/songs/6" }
+    },
+    {
+      "name": "GET All Playlists",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/playlists" }
+    },
+    {
+      "name": "GET Top Playlists (stored procedure)",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8080/api/playlists/top?limit=5",
+        "description": "Calls Get_Top_Playlists MySQL stored procedure."
+      }
+    },
+    {
+      "name": "GET Playlist by ID",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/playlists/1" }
+    },
+    {
+      "name": "POST Create Playlist",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"name\": \"Chill Vibes\",\n  \"description\": \"Relaxing tracks\"\n}"
+        },
+        "url": "http://localhost:8080/api/playlists"
+      }
+    },
+    {
+      "name": "PUT Update Playlist",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"name\": \"My Favorites\",\n  \"description\": \"Updated description\"\n}"
+        },
+        "url": "http://localhost:8080/api/playlists/1"
+      }
+    },
+    {
+      "name": "DELETE Playlist",
+      "request": { "method": "DELETE", "url": "http://localhost:8080/api/playlists/3" }
+    },
+    {
+      "name": "GET All Playlist Songs",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/playlist-songs" }
+    },
+    {
+      "name": "GET Playlist Song by ID",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/playlist-songs/1" }
+    },
+    {
+      "name": "POST Add Song to Playlist",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"playlistId\": 1,\n  \"songId\": 2,\n  \"position\": 4\n}"
+        },
+        "url": "http://localhost:8080/api/playlist-songs"
+      }
+    },
+    {
+      "name": "PUT Update Playlist Song",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"playlistId\": 1,\n  \"songId\": 2,\n  \"position\": 1\n}"
+        },
+        "url": "http://localhost:8080/api/playlist-songs/6"
+      }
+    },
+    {
+      "name": "DELETE Playlist Song",
+      "request": { "method": "DELETE", "url": "http://localhost:8080/api/playlist-songs/6" }
+    },
+    {
+      "name": "GET All Reviews",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/reviews" }
+    },
+    {
+      "name": "GET Review by Song ID",
+      "request": { "method": "GET", "url": "http://localhost:8080/api/reviews/song/1" }
+    },
+    {
+      "name": "GET Review by Mongo ID",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8080/api/reviews/YOUR_REVIEW_ID",
+        "description": "Replace YOUR_REVIEW_ID with the MongoDB _id from GET All Reviews or POST Create Review."
+      }
+    },
+    {
+      "name": "POST Create Review",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"songId\": 2,\n  \"songTitle\": \"Starboy\",\n  \"artist\": \"The Weeknd\",\n  \"tags\": [\"rnb\", \"pop\"],\n  \"reviews\": [\n    {\n      \"userId\": 1,\n      \"username\": \"musicfan99\",\n      \"rating\": 4,\n      \"comment\": \"Great track!\",\n      \"date\": \"2026-07-07\",\n      \"helpfulCount\": 10,\n      \"replies\": []\n    }\n  ],\n  \"playHistory\": [\n    {\n      \"userId\": 1,\n      \"username\": \"musicfan99\",\n      \"playedAt\": \"2026-07-07T12:00:00Z\",\n      \"durationListenedSec\": 230,\n      \"completed\": true\n    }\n  ]\n}"
+        },
+        "url": "http://localhost:8080/api/reviews"
+      }
+    },
+    {
+      "name": "PUT Update Review",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"songId\": 2,\n  \"songTitle\": \"Starboy\",\n  \"artist\": \"The Weeknd\",\n  \"tags\": [\"rnb\", \"pop\", \"updated\"],\n  \"reviews\": [],\n  \"playHistory\": [\n    {\n      \"userId\": 1,\n      \"username\": \"musicfan99\",\n      \"playedAt\": \"2026-07-07T12:00:00Z\",\n      \"durationListenedSec\": 230,\n      \"completed\": true\n    },\n    {\n      \"userId\": 2,\n      \"username\": \"beatslover\",\n      \"playedAt\": \"2026-07-07T14:00:00Z\",\n      \"durationListenedSec\": 230,\n      \"completed\": true\n    }\n  ]\n}"
+        },
+        "url": "http://localhost:8080/api/reviews/YOUR_REVIEW_ID",
+        "description": "Replace YOUR_REVIEW_ID with the MongoDB _id from POST Create Review."
+      }
+    },
+    {
+      "name": "DELETE Review",
+      "request": {
+        "method": "DELETE",
+        "url": "http://localhost:8080/api/reviews/YOUR_REVIEW_ID",
+        "description": "Replace YOUR_REVIEW_ID with the MongoDB _id from POST Create Review."
+      }
+    },
+    {
+      "name": "GET Top Tracks (aggregation pipeline)",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8080/api/stats/top-tracks",
+        "description": "MongoDB aggregation: $unwind -> $group -> $sort -> $limit"
+      }
+    }
+  ]
+}
